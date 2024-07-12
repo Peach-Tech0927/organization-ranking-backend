@@ -2,14 +2,12 @@ package main
 
 import (
 	"organization-ranking-backend/models"
-
-	"github.com/gin-gonic/gin"
+	"organization-ranking-backend/router"
 )
 
 func main() {
-	router := gin.Default()
-
 	models.ConnectDatabase()
 
-	router.Run(":8080")
+	r := router.SetUpRouter()
+	r.Run(":8080")
 }
