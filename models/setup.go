@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -19,7 +20,7 @@ func ConnectDatabase() {
 	s.Start()
 	defer s.Stop()
 	time.Sleep(time.Second)
-	
+
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -35,5 +36,24 @@ func ConnectDatabase() {
 		log.Fatal(err)
 	}
 
+	err = executeSQLFile(DB, "migrations/user.sql")
+	if err != nil {
+		log.Fatal("Error creating users table, ", err)
+	}
+
 	log.Print("\n\nConnected to the database successfully!!\n\n")
+}
+
+func executeSQLFile(db *sql.DB, filePath string) error {
+	query, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("could not read SQL file: %v", err)
+	}
+
+	_, err = db.Exec(string(query))
+	if err != nil {
+		return fmt.Errorf("could not execute SQL file: %v", err)
+	}
+
+	return nil
 }
