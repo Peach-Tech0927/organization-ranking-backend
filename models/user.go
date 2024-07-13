@@ -21,7 +21,7 @@ func (u *User) SaveToDatabase() error {
 	}
 
 	if count > 0 {
-		return fmt.Errorf("%w: %v", Err001, u.Email)
+		return fmt.Errorf("%w: %v", Err001, "user already exists")
 	}
 
 	u.HashPassword()
