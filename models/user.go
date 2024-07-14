@@ -69,6 +69,7 @@ func (u *User) ToJSONResponse() map[string]interface{} {
 		"email":    u.Email,
 		"username": u.Username,
 		"githubid": u.Githubid,
+		"contributions": u.Contributions,
 	}
 }
 

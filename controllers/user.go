@@ -14,7 +14,6 @@ type registerInput struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 	Githubid string `json:"githubid" binding:"required"`
-	Contributions int `json:"contributions"`
 }
 
 func Register(c *gin.Context) {
