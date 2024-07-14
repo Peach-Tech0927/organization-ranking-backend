@@ -12,6 +12,7 @@ type User struct {
 	Username   string `json:"username"`
 	Password   string `json:"password"`
 	Githubid   string `json:"githubid"`
+	Contributions int `json:"contributions"`
 }
 
 func (u *User) SaveToDatabase() error {
@@ -27,7 +28,7 @@ func (u *User) SaveToDatabase() error {
 
 	u.HashPassword()
 
-	result, err := DB.Exec("INSERT INTO users (email, username, password,githubid) VALUES (?, ?, ?, ?)", u.Email, u.Username, u.Password,u.Githubid)
+	result, err := DB.Exec("INSERT INTO users (email, username, password,githubid,contributions) VALUES (?, ?, ?, ?, ?)", u.Email, u.Username, u.Password,u.Githubid,u.Contributions)
 	if err != nil {
 		return fmt.Errorf("%w: %v", Err001, err)
 	}

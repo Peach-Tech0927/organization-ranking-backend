@@ -1,6 +1,5 @@
 package githubQuery
 //   fromToは要相談
-import "encoding/json"
 
 const query = `
 query($username: String!, $from: DateTime!, $to: DateTime!) {
