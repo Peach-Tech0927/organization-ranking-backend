@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 	"os"
@@ -19,7 +19,7 @@ func GetContributions(username string) (int, error) {
 	now := time.Now().In(jst)
 	oneDayAgo := now.AddDate(0, 0, -1)
 	oneWeekAgo := now.AddDate(0, 0, -7)
-	
+
 	token := os.Getenv("GITHUB_TOKEN")
 	variables := Variables{
 		Username: username,
@@ -56,7 +56,7 @@ func GetContributions(username string) (int, error) {
 		return 0, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	responseBody, err := ioutil.ReadAll(resp.Body)
+	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return 0, fmt.Errorf("failed to read response body: %v", err)
 	}
