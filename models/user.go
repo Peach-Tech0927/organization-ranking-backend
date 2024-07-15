@@ -11,7 +11,7 @@ type User struct {
 	Email      string `json:"email"`
 	Username   string `json:"username"`
 	Password   string `json:"password"`
-	GithubId   string `json:"githubid"`
+	GithubId   string `json:"github_id"`
 	Contributions int `json:"contributions"`
 }
 
@@ -28,7 +28,7 @@ func (u *User) SaveToDatabase() error {
 
 	u.HashPassword()
 
-	result, err := DB.Exec("INSERT INTO users (email, username, password,githubid,contributions) VALUES (?, ?, ?, ?, ?)", u.Email, u.Username, u.Password,u.GithubId,u.Contributions)
+	result, err := DB.Exec("INSERT INTO users (email, username, password, github_id, contributions) VALUES (?, ?, ?, ?, ?)", u.Email, u.Username, u.Password,u.GithubId,u.Contributions)
 	if err != nil {
 		return fmt.Errorf("%w: %v", Err001, err)
 	}
@@ -68,7 +68,7 @@ func (u *User) ToJSONResponse() map[string]interface{} {
 		"id":       u.Id,
 		"email":    u.Email,
 		"username": u.Username,
-		"githubid": u.GithubId,
+		"github_id": u.GithubId,
 		"contributions": u.Contributions,
 	}
 }
@@ -77,7 +77,7 @@ func (u *User) ToJSONResponse() map[string]interface{} {
 
 func FindUserByEmail(email string) (*User, error) {
 	var user User
-	err := DB.QueryRow("SELECT id, email, username, password FROM users WHERE email = ?", email).Scan(&user.Id, &user.Email, &user.Username, &user.Password)
+	err := DB.QueryRow("SELECT id, email, username, password, github_id, contributions FROM users WHERE email = ?", email).Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.GithubId, &user.Contributions)
 	if err != nil {
 		return nil, fmt.Errorf("%w: %v", Err004, err)
 	}
