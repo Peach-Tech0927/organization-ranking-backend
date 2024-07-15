@@ -4,8 +4,9 @@ import (
 	// "fmt"
 	"net/http"
 	"organization-ranking-backend/models"
-	"organization-ranking-backend/utils"
 	"organization-ranking-backend/models/githubQuery"
+	"organization-ranking-backend/utils"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +14,7 @@ type registerInput struct {
 	Email    string `json:"email" binding:"required"`
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
-	GithubId string `json:"githubid" binding:"required"`
+	GithubId string `json:"github_id" binding:"required"`
 }
 
 func Register(c *gin.Context) {
