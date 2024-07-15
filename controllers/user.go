@@ -4,8 +4,9 @@ import (
 	// "fmt"
 	"net/http"
 	"organization-ranking-backend/models"
-	"organization-ranking-backend/utils"
 	"organization-ranking-backend/models/githubQuery"
+	"organization-ranking-backend/utils"
+
 	"github.com/gin-gonic/gin"
 )
 

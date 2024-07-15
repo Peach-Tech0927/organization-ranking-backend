@@ -26,10 +26,12 @@ func ConnectDatabase() {
 		log.Fatal("Error loading .env file")
 	}
 
-	dsn := os.Getenv("DSN")
-	if len(dsn) == 0 {
-		log.Fatal("DSN is not set in the environment")
-	}
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASS")
+	dbName := os.Getenv("DB_NAME")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName)
 
 	DB, err = sql.Open("mysql", dsn)
 	if err != nil {
