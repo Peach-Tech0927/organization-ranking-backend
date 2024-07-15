@@ -1,6 +1,6 @@
 FROM golang:1.23rc1-alpine3.20
 
-RUN apk update && apk add git
+RUN apk update && apk add git bash
 
 WORKDIR /go/src/github.com/organization-ranking
 
