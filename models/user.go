@@ -11,7 +11,7 @@ type User struct {
 	Email      string `json:"email"`
 	Username   string `json:"username"`
 	Password   string `json:"password"`
-	Githubid   string `json:"githubid"`
+	GithubId   string `json:"githubid"`
 	Contributions int `json:"contributions"`
 }
 
@@ -28,7 +28,7 @@ func (u *User) SaveToDatabase() error {
 
 	u.HashPassword()
 
-	result, err := DB.Exec("INSERT INTO users (email, username, password,githubid,contributions) VALUES (?, ?, ?, ?, ?)", u.Email, u.Username, u.Password,u.Githubid,u.Contributions)
+	result, err := DB.Exec("INSERT INTO users (email, username, password,githubid,contributions) VALUES (?, ?, ?, ?, ?)", u.Email, u.Username, u.Password,u.GithubId,u.Contributions)
 	if err != nil {
 		return fmt.Errorf("%w: %v", Err001, err)
 	}
@@ -68,7 +68,7 @@ func (u *User) ToJSONResponse() map[string]interface{} {
 		"id":       u.Id,
 		"email":    u.Email,
 		"username": u.Username,
-		"githubid": u.Githubid,
+		"githubid": u.GithubId,
 		"contributions": u.Contributions,
 	}
 }

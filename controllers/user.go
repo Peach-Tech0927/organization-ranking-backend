@@ -13,7 +13,7 @@ type registerInput struct {
 	Email    string `json:"email" binding:"required"`
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
-	Githubid string `json:"githubid" binding:"required"`
+	GithubId string `json:"githubid" binding:"required"`
 }
 
 func Register(c *gin.Context) {
@@ -23,7 +23,7 @@ func Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	contributions,err := githubQuery.GetContributions(input.Githubid)
+	contributions,err := githubQuery.GetContributions(input.GithubId)
 	// fmt.Println(contributions)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -33,7 +33,7 @@ func Register(c *gin.Context) {
 	user.Email = input.Email
 	user.Username = input.Username
 	user.Password = input.Password
-	user.Githubid = input.Githubid
+	user.GithubId = input.GithubId
 	user.Contributions = contributions
 
 	err = user.SaveToDatabase()
