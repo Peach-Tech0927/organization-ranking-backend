@@ -1,10 +1,11 @@
 package controllers
 
 import (
+	// "fmt"
 	"net/http"
 	"organization-ranking-backend/models"
 	"organization-ranking-backend/utils"
-
+	"organization-ranking-backend/models/githubQuery"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,7 @@ type registerInput struct {
 	Email    string `json:"email" binding:"required"`
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
+	GithubId string `json:"githubid" binding:"required"`
 }
 
 func Register(c *gin.Context) {
@@ -21,11 +23,18 @@ func Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	contributions,err := githubQuery.GetContributions(input.GithubId)
+	// fmt.Println(contributions)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	var user models.User
 	user.Email = input.Email
 	user.Username = input.Username
 	user.Password = input.Password
+	user.GithubId = input.GithubId
+	user.Contributions = contributions
 
 	err = user.SaveToDatabase()
 	if err != nil {
