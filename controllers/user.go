@@ -14,7 +14,7 @@ type registerInput struct {
 	Email    string `json:"email" binding:"required"`
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
-	GithubId string `json:"githubid" binding:"required"`
+	GithubId string `json:"github_id" binding:"required"`
 }
 
 func Register(c *gin.Context) {
