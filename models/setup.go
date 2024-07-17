@@ -39,6 +39,7 @@ func ConnectDatabase() {
 	}
 
 	err = executeSQLFile(DB, "migrations/user.sql")
+	err = executeSQLFile(DB, "migrations/organization.sql")
 	if err != nil {
 		log.Fatal("Error creating users table, ", err)
 	}
