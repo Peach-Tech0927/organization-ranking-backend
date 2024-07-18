@@ -4,7 +4,7 @@ SELECT
      COALESCE(SUM(u.contributions),0) AS total_contributions
  FROM 
      organizations o
--- 全団体を出すためにLEFTにする
+-- 全団体を出すために左結合にする
  LEFT JOIN 
      user_organizations uo ON o.id = uo.organization_id
  LEFT JOIN 

@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS organizations (
+    -- 随時増やしたい
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE
 );

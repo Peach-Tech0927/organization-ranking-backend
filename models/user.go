@@ -73,8 +73,6 @@ func (u *User) ToJSONResponse() map[string]interface{} {
 	}
 }
 
-//
-
 func FindUserByEmail(email string) (*User, error) {
 	var user User
 	err := DB.QueryRow("SELECT id, email, username, password, github_id, contributions FROM users WHERE email = ?", email).Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.GithubId, &user.Contributions)

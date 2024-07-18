@@ -6,8 +6,6 @@ import (
 	"organization-ranking-backend/models"
 )
 
-
-
 func GetOrganizationsRanking(c *gin.Context) {
 
 	query, err := models.OrganizationRankingSQL(models.DB, "migrations/organization-ranking.sql")
@@ -23,5 +21,9 @@ func GetOrganizationsRanking(c *gin.Context) {
 	}
 	defer rows.Close()
 	organizations_data, err := models.GetOrganizationResultJSON(rows,c)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get organization data"})
+		return
+	}
     c.JSON(http.StatusOK, organizations_data)
 }
