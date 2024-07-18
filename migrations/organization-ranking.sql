@@ -1,9 +1,10 @@
 SELECT
      o.id AS organization_id,
      o.name AS organization_name,
-     COALESCE(SUM(u.contributions),0) AS total_score
+     COALESCE(SUM(u.contributions),0) AS total_contributions
  FROM 
      organizations o
+-- 全団体を出すためにLEFTにする
  LEFT JOIN 
      user_organizations uo ON o.id = uo.organization_id
  LEFT JOIN 
@@ -11,4 +12,4 @@ SELECT
  GROUP BY 
      o.id, o.name
  ORDER BY 
-     total_score DESC;
+     total_contributions DESC;

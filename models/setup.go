@@ -50,6 +50,7 @@ func ConnectDatabase() {
 	if err != nil {
 		log.Fatal("Error creating user_organizations table, ", err)
 	}
+	//mocデータの挿入
 	insertMockData(DB)
 
 	log.Print("\n\nConnected to the database successfully!!\n\n")
