@@ -15,11 +15,12 @@ func SetUpRouter() *gin.Engine {
 	{
 		auth.POST("/register", controllers.Register)
 		auth.POST("/login", controllers.Login)
-		auth.POST("/register/organization", controllers.RegisterOrganization)
 	}
 
 	protected := router.Group("/api")
 	protected.Use(middlewares.JwtAuthMiddleware())
-
+	{
+		protected.GET("/organizations-ranking",controllers.GetOrganizationsRanking)
+	}
 	return router
 }

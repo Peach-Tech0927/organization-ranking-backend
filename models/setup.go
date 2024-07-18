@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 	"time"
-
+	"math/rand"
 	"github.com/briandowns/spinner"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -39,10 +39,18 @@ func ConnectDatabase() {
 	}
 
 	err = executeSQLFile(DB, "migrations/user.sql")
-	err = executeSQLFile(DB, "migrations/organization.sql")
 	if err != nil {
 		log.Fatal("Error creating users table, ", err)
 	}
+	err = executeSQLFile(DB, "migrations/organization.sql")
+	if err != nil {
+		log.Fatal("Error creating organizations table, ", err)
+	}
+	err = executeSQLFile(DB, "migrations/user-organization.sql")
+	if err != nil {
+		log.Fatal("Error creating user_organizations table, ", err)
+	}
+	insertMockData(DB)
 
 	log.Print("\n\nConnected to the database successfully!!\n\n")
 }
@@ -59,4 +67,37 @@ func executeSQLFile(db *sql.DB, filePath string) error {
 	}
 
 	return nil
+}
+
+
+func insertMockData(db *sql.DB) {
+    rand.Seed(time.Now().UnixNano())
+
+    for i := 1; i <= 10; i++ {
+        name := fmt.Sprintf("User%d", i)
+		id := fmt.Sprintf("id%d", i)
+		email := fmt.Sprintf("email%d", i)
+        score := rand.Intn(100)
+        _, err := db.Exec("INSERT INTO users (email,username,password,github_id, contributions) VALUES (?,?,?,?,?)",email, name,"mocmoc",id, score)
+        if err != nil {
+            log.Fatal(err)
+        }
+    }
+
+    for i := 1; i <= 10; i++ {
+        name := fmt.Sprintf("Organization%d", i)
+        _, err := db.Exec("INSERT INTO organizations (name) VALUES (?)", name)
+        if err != nil {
+            log.Fatal(err)
+        }
+    }
+
+    for i := 1; i <= 10; i++ {
+        userID := rand.Intn(10) + 1
+        organizationID := rand.Intn(10) + 1
+        _, err := db.Exec("INSERT INTO user_organizations (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
+        if err != nil {
+            log.Fatal(err)
+        }
+    }
 }
