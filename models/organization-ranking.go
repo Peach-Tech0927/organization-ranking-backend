@@ -16,10 +16,10 @@ func OrganizationRankingSQL(db *sql.DB, filePath string) (string, error) {
     return string(query), nil
 }
 
-func GetOrganizationResultJSON(rows *sql.Rows,c *gin.Context) ([]OrganizationData, error) {
-	var organizations_data []OrganizationData
+func GetOrganizationResultJSON(rows *sql.Rows,c *gin.Context) ([]Organization, error) {
+	var organizations_data []Organization
     for rows.Next() {
-        var data OrganizationData
+        var data Organization
          err := rows.Scan(&data.OrganizationID, &data.OrganizationName, &data.TotalContributions)
 		 if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan result"})
