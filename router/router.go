@@ -16,7 +16,7 @@ func SetUpRouter() *gin.Engine {
 		auth.POST("/register", controllers.Register)
 		auth.POST("/login", controllers.Login)
 	}
-	public.GET("/organizations-result",controllers.GetOrganizationsRanking)
+	public.GET("/ranking",controllers.GetOrganizationsRanking)
 
 	protected := router.Group("/api")
 	protected.Use(middlewares.JwtAuthMiddleware())
