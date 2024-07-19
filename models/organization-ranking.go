@@ -6,11 +6,6 @@ import(
 	"net/http"
 	"github.com/gin-gonic/gin"
 )
-type OrganizationData struct {
-    OrganizationID   int    `json:"organization_id"`
-    OrganizationName string `json:"organization_name"`
-    TotalContributions       int    `json:"total_contributions"`
-}
 
 func OrganizationRankingSQL(db *sql.DB, filePath string) (string, error) {
     query, err := os.ReadFile(filePath)
