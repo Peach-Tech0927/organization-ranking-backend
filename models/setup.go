@@ -48,7 +48,7 @@ func ConnectDatabase() {
 	}
 	err = executeSQLFile(DB, "migrations/user-organization.sql")
 	if err != nil {
-		log.Fatal("Error creating user_organiation_membership table, ", err)
+		log.Fatal("Error creating user_organization_membership table, ", err)
 	}
 	//mocデータの挿入
 	insertMockData(DB)
@@ -96,7 +96,7 @@ func insertMockData(db *sql.DB) {
     for i := 1; i <= 10; i++ {
         userID := rand.Intn(10) + 1
         organizationID := rand.Intn(10) + 1
-        _, err := db.Exec("INSERT INTO user_organiation_membership (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
+        _, err := db.Exec("INSERT INTO user_organization_membership (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
         if err != nil {
             log.Fatal(err)
         }
