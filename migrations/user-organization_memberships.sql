@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user_organization_membership (
+CREATE TABLE IF NOT EXISTS user_organization_memberships (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,
     organization_id INT UNSIGNED NOT NULL
