@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"time"
-	"math/rand"
-	"github.com/briandowns/spinner"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 )
@@ -15,12 +15,6 @@ import (
 var DB *sql.DB
 
 func ConnectDatabase() {
-	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
-	s.Prefix = "Connecting to the database "
-	s.Start()
-	defer s.Stop()
-	time.Sleep(time.Second)
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
