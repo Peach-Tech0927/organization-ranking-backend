@@ -3,7 +3,7 @@ package models
 import "fmt"
 
 type Organization struct {
-    Id                 int    `json:"id"`
+    Id                 uint    `json:"id"`
     Name               string `json:"name"`
     TotalContributions int    `json:"total_contributions"`
 }
@@ -27,7 +27,20 @@ func (o *Organization) CreateNewRecord() error { // contributionの取得は行�
     if err != nil {
         return fmt.Errorf("%w: %v", Err005, err)
     }
-    o.Id = int(id)
+    o.Id = uint(id)
+
+    return nil
+}
+
+func (o *Organization) Join(user *User) error {
+    var membership UserOrganizationMembership
+    membership.UserId = user.Id
+    membership.OrganizationId = o.Id
+
+    err := membership.CreateNewRecord()
+    if err != nil {
+        return fmt.Errorf("%w: %v", Err006, err)
+    }
 
     return nil
 }
@@ -35,7 +48,7 @@ func (o *Organization) CreateNewRecord() error { // contributionの取得は行�
 func (o *Organization) UpdateTotalContributions() error {
     _, err := DB.Exec("UPDATE organizations SET total_contributions = ? WHERE id = ?", o.TotalContributions, o.Id)
     if err != nil {
-        return fmt.Errorf("%w: %v", Err006, err)
+        return fmt.Errorf("%w: %v", Err007, err)
     }
     return nil
 }
