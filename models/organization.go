@@ -39,3 +39,12 @@ func (o *Organization) UpdateTotalContributions() error {
     }
     return nil
 }
+
+// 隠匿するべき情報があるモデルをそのまま返さないために、各モデルにToJSONResponseを使うことを慣習にする
+func (o *Organization) ToJSONResponse() map[string]interface{} {
+    return map[string]interface{}{
+        "id":                o.Id,
+        "name":              o.Name,
+        "total_contributions": o.TotalContributions,
+    }
+}
