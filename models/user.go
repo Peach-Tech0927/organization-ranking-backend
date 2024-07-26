@@ -86,7 +86,7 @@ func FindUserById(id uint) (*User, error) {
 	var user User
 	err := DB.QueryRow("SELECT id, email, username, password, github_id, contributions FROM users WHERE id = ?", id).Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.GithubId, &user.Contributions)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %v", Err008, err)
+		return nil, fmt.Errorf("%w: %v", Err007, err)
 	}
 	return &user, nil
 }

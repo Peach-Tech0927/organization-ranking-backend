@@ -45,14 +45,6 @@ func (o *Organization) Join(user *User) error {
     return nil
 }
 
-func (o *Organization) UpdateTotalContributions() error {
-    _, err := DB.Exec("UPDATE organizations SET total_contributions = ? WHERE id = ?", o.TotalContributions, o.Id)
-    if err != nil {
-        return fmt.Errorf("%w: %v", Err007, err)
-    }
-    return nil
-}
-
 // 隠匿するべき情報があるモデルをそのまま返さないために、各モデルにToJSONResponseを使うことを慣習にする
 func (o *Organization) ToJSONResponse() map[string]interface{} {
     return map[string]interface{}{
