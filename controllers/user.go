@@ -37,7 +37,7 @@ func Register(c *gin.Context) {
 	user.GithubId = input.GithubId
 	user.Contributions = contributions
 
-	err = user.SaveToDatabase()
+	err = user.CreateNewRecord()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

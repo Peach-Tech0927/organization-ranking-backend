@@ -15,7 +15,7 @@ type User struct {
 	Contributions int `json:"contributions"`
 }
 
-func (u *User) SaveToDatabase() error {
+func (u *User) CreateNewRecord() error {
 	var count int
 	err := DB.QueryRow("SELECT COUNT(*) FROM users WHERE email = ?", u.Email).Scan(&count)
 	if err != nil {
