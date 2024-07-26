@@ -10,14 +10,7 @@ require (
 )
 
 require (
-	github.com/fatih/color v1.7.0 // indirect
-	github.com/mattn/go-colorable v0.1.2 // indirect
-	golang.org/x/term v0.20.0 // indirect
-)
-
-require (
 	filippo.io/edwards25519 v1.1.0 // indirect
-	github.com/briandowns/spinner v1.23.1
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
