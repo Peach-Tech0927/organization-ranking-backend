@@ -9,5 +9,7 @@ var (
 	Err003 = errors.New("error 003")
 	Err004 = errors.New("error 004")
 
-	//
+	// organizations
+	Err005 = errors.New("error 005")
+	Err006 = errors.New("error 006")
 )
