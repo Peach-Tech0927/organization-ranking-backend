@@ -20,5 +20,12 @@ func SetUpRouter() *gin.Engine {
 
 	protected := router.Group("/api")
 	protected.Use(middlewares.JwtAuthMiddleware())
+	{
+		organization := protected.Group("/organization")
+		{
+			organization.POST("", controllers.CreateOrganization)
+		}
+	}
+
 	return router
 }
