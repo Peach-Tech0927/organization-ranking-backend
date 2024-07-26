@@ -40,7 +40,7 @@ func ConnectDatabase() {
 	if err != nil {
 		log.Fatal("Error creating organizations table, ", err)
 	}
-	err = executeSQLFile(DB, "migrations/user-organization.sql")
+	err = executeSQLFile(DB, "migrations/user-organization-memberships.sql")
 	if err != nil {
 		log.Fatal("Error creating user_organization_membership table, ", err)
 	}
