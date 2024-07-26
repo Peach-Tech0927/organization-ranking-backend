@@ -90,7 +90,7 @@ func insertMockData(db *sql.DB) {
     for i := 1; i <= 10; i++ {
         userID := rand.Intn(10) + 1
         organizationID := rand.Intn(10) + 1
-        _, err := db.Exec("INSERT INTO user_organization_membership (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
+        _, err := db.Exec("INSERT INTO user_organization_memberships (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
         if err != nil {
             log.Fatal(err)
         }
