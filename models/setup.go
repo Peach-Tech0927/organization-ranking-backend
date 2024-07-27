@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"time"
-	"math/rand"
-	"github.com/briandowns/spinner"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 )
@@ -15,12 +15,6 @@ import (
 var DB *sql.DB
 
 func ConnectDatabase() {
-	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
-	s.Prefix = "Connecting to the database "
-	s.Start()
-	defer s.Stop()
-	time.Sleep(time.Second)
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -46,7 +40,7 @@ func ConnectDatabase() {
 	if err != nil {
 		log.Fatal("Error creating organizations table, ", err)
 	}
-	err = executeSQLFile(DB, "migrations/user-organization.sql")
+	err = executeSQLFile(DB, "migrations/user-organization-memberships.sql")
 	if err != nil {
 		log.Fatal("Error creating user_organization_membership table, ", err)
 	}
@@ -96,7 +90,7 @@ func insertMockData(db *sql.DB) {
     for i := 1; i <= 10; i++ {
         userID := rand.Intn(10) + 1
         organizationID := rand.Intn(10) + 1
-        _, err := db.Exec("INSERT INTO user_organization_membership (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
+        _, err := db.Exec("INSERT INTO user_organization_memberships (user_id, organization_id) VALUES (?, ?)", userID, organizationID)
         if err != nil {
             log.Fatal(err)
         }

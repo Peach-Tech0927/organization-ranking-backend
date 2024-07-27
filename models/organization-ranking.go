@@ -1,9 +1,11 @@
 package models
-import(
-	"os"
+
+import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"os"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +22,7 @@ func GetOrganizationResultJSON(rows *sql.Rows,c *gin.Context) ([]Organization, e
 	var organizations_data []Organization
     for rows.Next() {
         var data Organization
-         err := rows.Scan(&data.OrganizationID, &data.OrganizationName, &data.TotalContributions)
+         err := rows.Scan(&data.Id, &data.Name, &data.TotalContributions)
 		 if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan result"})
             return nil, err

@@ -15,7 +15,7 @@ type User struct {
 	Contributions int `json:"contributions"`
 }
 
-func (u *User) SaveToDatabase() error {
+func (u *User) CreateNewRecord() error {
 	var count int
 	err := DB.QueryRow("SELECT COUNT(*) FROM users WHERE email = ?", u.Email).Scan(&count)
 	if err != nil {
@@ -78,6 +78,15 @@ func FindUserByEmail(email string) (*User, error) {
 	err := DB.QueryRow("SELECT id, email, username, password, github_id, contributions FROM users WHERE email = ?", email).Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.GithubId, &user.Contributions)
 	if err != nil {
 		return nil, fmt.Errorf("%w: %v", Err004, err)
+	}
+	return &user, nil
+}
+
+func FindUserById(id uint) (*User, error) {
+	var user User
+	err := DB.QueryRow("SELECT id, email, username, password, github_id, contributions FROM users WHERE id = ?", id).Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.GithubId, &user.Contributions)
+	if err != nil {
+		return nil, fmt.Errorf("%w: %v", Err007, err)
 	}
 	return &user, nil
 }
