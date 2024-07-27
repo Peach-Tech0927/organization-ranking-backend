@@ -13,4 +13,7 @@ var (
 	// organizations
 	Err005 = errors.New("error 005")
 	Err006 = errors.New("error 006")
+
+	// user-organization-memberships
+	Err008 = errors.New("error 008")
 )
