@@ -6,7 +6,7 @@ SELECT
      organizations o
 -- 全団体を出すために左結合にする
  LEFT JOIN 
-     user_organization_membership uo ON o.id = uo.organization_id
+     user_organization_memberships uo ON o.id = uo.organization_id
  LEFT JOIN 
      users u ON u.id = uo.user_id
  GROUP BY 
