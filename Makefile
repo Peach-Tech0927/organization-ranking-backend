@@ -5,6 +5,9 @@ SQL_CONTAINER_NAME=organization-ranking-db
 up:
 	@${COMPOSE} up -d
 
+dev: 
+	@${COMPOSE} up
+
 down:
 	@${COMPOSE} down
 
