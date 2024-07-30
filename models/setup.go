@@ -27,6 +27,7 @@ func ConnectDatabase() {
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName)
 
+	time.Sleep(2 * time.Second)
 	DB, err = sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal(err)
